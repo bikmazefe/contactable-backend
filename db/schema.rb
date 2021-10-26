@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_26_152254) do
+ActiveRecord::Schema.define(version: 2021_10_26_180257) do
 
   create_table "contacts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email"
@@ -23,6 +23,17 @@ ActiveRecord::Schema.define(version: 2021_10_26_152254) do
     t.index ["user_id"], name: "index_contacts_on_user_id"
   end
 
+  create_table "event_logs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "action"
+    t.bigint "contact_id", null: false
+    t.string "old_value"
+    t.string "new_value"
+    t.string "field"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["contact_id"], name: "index_event_logs_on_contact_id"
+  end
+
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -31,4 +42,5 @@ ActiveRecord::Schema.define(version: 2021_10_26_152254) do
   end
 
   add_foreign_key "contacts", "users"
+  add_foreign_key "event_logs", "contacts"
 end

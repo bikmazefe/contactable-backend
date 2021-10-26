@@ -1,4 +1,6 @@
 class Contact < ApplicationRecord
+  include EventLoggable
+  
   belongs_to :user
 
   validates_presence_of :email, :phone, :first_name, :last_name
