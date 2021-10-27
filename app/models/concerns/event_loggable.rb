@@ -4,7 +4,7 @@ module EventLoggable
   EXCLUDED_ATTRS = %w(created_at updated_at)
 
   included do
-    has_many(:event_logs)
+    has_many :event_logs, dependent: :destroy
     after_create :log_created
     after_update :log_modified
   end
