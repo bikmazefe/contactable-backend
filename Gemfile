@@ -49,3 +49,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rack-cors'
 
 gem "faker", "~> 2.19"
+
+gem "simplecov", "~> 0.21.2", :group => :test
