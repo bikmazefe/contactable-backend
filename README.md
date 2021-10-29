@@ -1,24 +1,34 @@
-# README
+# Contactable API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## What is this?
 
-Things you may want to cover:
+This is a Rails API which serves as the backend for the [Contactable app](https://github.com/bikmazefe/contactable-frontend)
 
-* Ruby version
+### Built with:
 
-* System dependencies
++ Rails 6.1.4
++ Ruby 3.0.0
++ MySQL
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Setup
+1) Clone this repo
+```
+git clone https://github.com/bikmazefe/contactable-backend.git
+```
+2) cd into the directory
+```
+cd contactable-backend
+```
+3) Install the gems.
+```
+bundle install
+```
+4) Setup the database.
+```
+rails db:create db:migrate db:seed
+```
+5) Start the server
+```
+rails s
+```
+   * Make sure to use the default port 3000
