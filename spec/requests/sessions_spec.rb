@@ -34,4 +34,12 @@ RSpec.describe "session management", type: :request do
       end
     end
   end
+
+  describe "DELETE logout" do
+    it "ends the session" do
+      delete "/logout"
+
+      expect(response).to have_http_status(:ok)
+    end
+  end
 end
