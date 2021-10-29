@@ -27,7 +27,11 @@ bundle install
 ```
 rails db:create db:migrate db:seed
 ```
-5) Start the server
+5) Run the tests to make sure that everything is working properly.
+```
+rspec
+```
+6) Start the server
 ```
 rails s
 ```
