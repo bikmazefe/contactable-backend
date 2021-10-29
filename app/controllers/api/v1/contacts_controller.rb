@@ -7,7 +7,9 @@ class Api::V1::ContactsController < Api::V1::BaseController
   end
 
   def show
-    # TODO: render event logs here
+    logs = @contact.get_logs
+
+    render json: { logs: logs }
   end
 
   def create
@@ -22,11 +24,16 @@ class Api::V1::ContactsController < Api::V1::BaseController
   end
 
   def update
-    # TODO
+    if @contact.update(contact_params)
+      render json: { contact: @contact }
+    else
+      render json: { errors: @contact.errors.messages }, status: :unprocessable_entity
+    end
   end
 
   def destroy
-    # TODO
+    @contact.destroy
+    head :ok
   end
 
   private

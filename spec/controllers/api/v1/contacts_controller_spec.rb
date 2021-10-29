@@ -18,6 +18,16 @@ RSpec.describe Api::V1::ContactsController, type: :controller do
     end
   end
 
+  describe "GET show" do
+    it "returns the event logs" do
+      contact = FactoryBot.create(:contact, user: @user)
+
+      get :show, params: { id: contact.id }
+
+      expect(response_body["logs"].first["event"]).to eq "Contact created."
+    end
+  end
+
   describe "POST create" do
     it "creates a new contact" do
       contact = {
@@ -30,6 +40,45 @@ RSpec.describe Api::V1::ContactsController, type: :controller do
       post :create, params: { contact: contact }
 
       expect(response).to have_http_status(:created)
+    end
+  end
+
+  describe "PATCH update" do
+    it "updates the contact" do
+      contact = FactoryBot.create(
+        :contact,
+        first_name: "I am",
+        last_name: "Gonna be updated",
+        email: "soontobechanged@example.com",
+        phone: "123123123",
+        user: @user,
+      )
+
+      new_attrs = {
+        first_name: "Changed",
+        last_name: "Name",
+        email: "changed@example.com",
+        phone: "37457457457",
+      }
+
+      patch :update, params: { contact: new_attrs, id: contact.id }
+      contact.reload
+
+      expect(response).to have_http_status(:ok)
+      expect(contact.first_name).to eq "Changed"
+      expect(contact.last_name).to eq "Name"
+      expect(contact.email).to eq "changed@example.com"
+      expect(contact.phone).to eq "37457457457"
+    end
+  end
+
+  describe "DELETE destroy" do
+    it "destroys the contact" do
+      contact = FactoryBot.create(:contact, user: @user)
+
+      delete :destroy, params: { id: contact.id }
+
+      expect(response).to have_http_status(:ok)
     end
   end
 end
